@@ -1,0 +1,41 @@
+"self.folders_id" =
+    {
+        self.drive_parent_folder:
+            {
+                "id": id
+                "days":
+                    {
+                        "lunes":
+                            {
+                                "id": id
+                                "principal_folders"
+                                    {
+                                        r"C:\Users\lisan\Desktop\Proyecto MaLau":
+                                            {
+                                                "id": id
+                                                "subfolders":
+                                                    {
+                                                        rel_folders_paths:
+                                                            {
+                                                                "id": id
+                                                                "files":
+                                                                    {
+                                                                        file1: id
+                                                                        ...
+                                                                    }
+                                                            }
+                                                        ...
+                                                    }
+                                                "files":
+                                                    {
+                                                        file1: id
+                                                        ...
+                                                    }
+                                            }
+                                        ...
+                                    }
+                            }
+                        ...
+                    }
+            }
+    }
