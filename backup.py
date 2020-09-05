@@ -204,24 +204,13 @@ class Sync(object):
         print('Sync complete !')
 
 def main():
-    days = [
-            "lunes",
-            "martes",
-            "miercoles",
-            "jueves",
-            "viernes",
-            "sabado",
-            "domingo",
-            ]
-    local_folders = [
-                    r"C:\Users\lisan\Desktop\Proyecto MaLau",
-                    # r"C:\Users\lisan\Descargas",
-                    # r"C:\Users\lisan\Documentos",
-                    # r"C:\Users\lisan\Imagenes",
-                    # r"C:\Users\lisan\Videos",
-                    ]
+    with open('./data_to_config/days_to_backup.txt') as file:
+        days = [line.rstrip('\n') for line in file]
 
-    SyncObj = Sync(days=days, local_folders=local_folders, parent_folder="MaLau")
+    with open('./data_to_config/local_folders_path.txt') as file:
+        local_folders = [line.rstrip('\n') for line in file]
+    
+    SyncObj = Sync(days=days, local_folders=local_folders, parent_folder=open('./data_to_config/drive_parent_folder.txt').read())
     SyncObj.syncronize()
 
 

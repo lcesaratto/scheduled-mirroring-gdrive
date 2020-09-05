@@ -1,2 +1,5 @@
 client_secrets.json
 credentials.txt
+data_to_config/days_to_backup.txt
+data_to_config/drive_parent_folder.txt
+data_to_config/local_folders_path.txt
