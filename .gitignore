@@ -6,3 +6,7 @@ data_to_config/local_folders_path.txt
 
 venv
 .vscode
+dist
+build
+backup.spec
+__pycache__
