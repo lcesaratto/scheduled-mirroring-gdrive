@@ -5,7 +5,7 @@ from pydrive.files import GoogleDriveFileList
 import googleapiclient.errors
 
 # Import general libraries
-from os import chdir, listdir, stat, walk, path, sep
+from os import chdir, listdir, stat, walk, path, sep, system
 from sys import exit
 import ast
 import time
@@ -212,6 +212,9 @@ def main():
     
     SyncObj = Sync(days=days, local_folders=local_folders, parent_folder=open('./data_to_config/drive_parent_folder.txt').read())
     SyncObj.syncronize()
+
+    # Shut down computer
+    # system("shutdown /s /t 1")
 
 
 if __name__ == "__main__":
