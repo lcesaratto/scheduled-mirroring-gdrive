@@ -203,19 +203,27 @@ class Sync(object):
         pprint(self.folders_id)
         print('Sync complete !')
 
-def main():
-    with open('./data_to_config/days_to_backup.txt') as file:
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        import sys
+        import os
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+if __name__ == "__main__":
+    with open(resource_path('./data_to_config/days_to_backup.txt')) as file:
         days = [line.rstrip('\n') for line in file]
 
-    with open('./data_to_config/local_folders_path.txt') as file:
+    with open(resource_path('./data_to_config/local_folders_path.txt')) as file:
         local_folders = [line.rstrip('\n') for line in file]
     
-    SyncObj = Sync(days=days, local_folders=local_folders, parent_folder=open('./data_to_config/drive_parent_folder.txt').read())
+    SyncObj = Sync(days=days, local_folders=local_folders, parent_folder=open(resource_path('./data_to_config/drive_parent_folder.txt')).read())
     SyncObj.syncronize()
 
     # Shut down computer
-    # system("shutdown /s /t 1")
-
-
-if __name__ == "__main__":
-    main()
+    system("shutdown /s /t 1")
