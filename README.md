@@ -11,7 +11,7 @@ In powershell: Set-ExecutionPolicy Unrestricted
 python -m venv venv
 venv\scripts\activate.bat
 pip install -r requirements.txt
-pyinstaller --add-data "client_secrets.json;." --add-data "settings.yaml;." --add-data "credentials.txt;." --add-data "data_to_config;data_to_config" --add-data "google_drive_resources;." --onefile --windowed backup.py
+pyinstaller --add-data "client_secrets.json;." --add-data "settings.yaml;." --add-data "credentials.txt;." --add-data "email_credentials.json;." --add-data "data_to_config;data_to_config" --add-data "google_drive_resources;." --onefile --windowed backup.py
 
 
 

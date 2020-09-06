@@ -12,6 +12,8 @@ import time
 from pprint import pprint
 from datetime import date, datetime
 
+import smtplib, ssl
+import json
 
 class Sync(object):
     def __init__(self, days=[], local_folders=[], parent_folder=""):
@@ -215,15 +217,41 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
+def send_email(subject,content):
+    port = 587  # For starttls
+    smtp_server = "smtp.gmail.com"
+    with open(resource_path("email_credentials.json")) as f:
+        data = json.load(f)
+    sender_email = data["sender_email"]
+    receiver_email = data["receiver_email"]
+    password = data["password"]
+    message = "Subject: "+subject+"\n"+content
+
+    context = ssl.create_default_context()
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.ehlo()  # Can be omitted
+        server.starttls(context=context)
+        server.ehlo()  # Can be omitted
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message)
+
 if __name__ == "__main__":
-    with open(resource_path('./data_to_config/days_to_backup.txt')) as file:
-        days = [line.rstrip('\n') for line in file]
+    try:
+        with open(resource_path('./data_to_config/days_to_backup.txt')) as file:
+            days = [line.rstrip('\n') for line in file]
 
-    with open(resource_path('./data_to_config/local_folders_path.txt')) as file:
-        local_folders = [line.rstrip('\n') for line in file]
-    
-    SyncObj = Sync(days=days, local_folders=local_folders, parent_folder=open(resource_path('./data_to_config/drive_parent_folder.txt')).read())
-    SyncObj.syncronize()
+        with open(resource_path('./data_to_config/local_folders_path.txt')) as file:
+            local_folders = [line.rstrip('\n') for line in file]
+        
+        SyncObj = Sync(days=days, local_folders=local_folders, parent_folder=open(resource_path('./data_to_config/drive_parent_folder.txt')).read())
+        SyncObj.syncronize()
 
-    # Shut down computer
-    system("shutdown /s /t 1")
+        # Shut down computer
+        print("Apagar")
+        send_email("OK","TODO OK")
+        # system("shutdown /s /t 1")
+    except Exception as e:
+        # Shut down computer
+        print("Apagar")
+        send_email("ERROR",str(e))
+        # system("shutdown /s /t 1")

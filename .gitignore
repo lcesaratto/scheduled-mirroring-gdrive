@@ -10,3 +10,5 @@ dist
 build
 backup.spec
 __pycache__
+
+email_credentials.json
